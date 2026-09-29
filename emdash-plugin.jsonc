@@ -1,0 +1,43 @@
+{
+	"$schema": "./node_modules/@emdash-cms/plugin-cli/schemas/emdash-plugin.schema.json",
+
+	"slug": "discord-notifier",
+	"name": "Discord Notifier",
+	"publisher": "did:plc:fgqd25zioc5avtcj3affqoea", // raghuchinnannan.bsky.social
+
+	"license": "MIT",
+	"author": { "name": "Raghu Chinnannan", "url": "https://a2plugins.com" },
+	"security": { "email": "info@raghu.ch" },
+	"description": "Discord alerts for publishes, comments, media and form submissions, with Pro routing and digests.",
+	"keywords": ["discord", "notifications", "webhook", "comments", "forms"],
+	"repo": "https://github.com/raghuchinnannan/emdash-discord-notifier",
+
+	// Trust contract.
+	// - content:read / media:read: the content:* and media:afterUpload hooks require them.
+	// - users:read: every comment:* hook requires it (events carry author contact data).
+	// - network:request: discord.com / discordapp.com deliver messages; api.lemonsqueezy.com
+	//   validates Pro/Extended license keys. No other host is reachable.
+	"capabilities": ["content:read", "media:read", "users:read", "network:request"],
+	"allowedHosts": ["discord.com", "discordapp.com", "api.lemonsqueezy.com"],
+
+	"storage": {
+		"deliveries": { "indexes": ["at", "status"] },
+	},
+
+	"admin": {
+		"pages": [
+			{ "path": "/settings", "label": "Discord Notifier", "icon": "bell" },
+			{ "path": "/log", "label": "Delivery log", "icon": "list" },
+		],
+		"widgets": [{ "id": "status", "title": "Discord", "size": "third" }],
+		"settingsSchema": {
+			"webhookUrl": { "type": "secret", "label": "Discord webhook URL" },
+			"contentWebhookUrl": { "type": "secret", "label": "Content webhook URL" },
+			"commentsWebhookUrl": { "type": "secret", "label": "Comments webhook URL" },
+			"mediaWebhookUrl": { "type": "secret", "label": "Media webhook URL" },
+			"formsWebhookUrl": { "type": "secret", "label": "Forms webhook URL" },
+			"licenseKey": { "type": "secret", "label": "License key" },
+			"formsToken": { "type": "secret", "label": "Forms relay token" },
+		},
+	},
+}
