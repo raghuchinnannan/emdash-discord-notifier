@@ -62,16 +62,3 @@ Public route: `/_emdash/api/plugins/discord-notifier/forms` (Pro), authenticated
 - Messages set `allowed_mentions` so comment text or form values can never ping `@everyone`.
   Only mention types you configured are allowed.
 - Discord rate limits (HTTP 429) are honoured once, then the message is dropped and logged.
-
-## Develop
-
-```sh
-npm install
-npm test          # validate + unit tests + sandbox integration tests
-npm run build
-npm run bundle    # dist/discord-notifier-<version>.tar.gz
-```
-
-`ACCEPTED_PRODUCT_IDS` in `src/lib/license.ts` lists the LemonSqueezy product/variant IDs that unlock Pro.
-
-Publish: `npx emdash-plugin login raghuchinnannan.bsky.social` then `npx emdash-plugin publish`.
